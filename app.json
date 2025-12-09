@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "AI Checker",
+    "slug": "ai-checker",
+    "version": "1.2.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f1f1f1"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSCameraUsageDescription": "We need access to the camera so that you can take photos of content to analyze.",
+        "NSPhotoLibraryUsageDescription": "We need access to the photo library so that you can select photos of content to analyze."
+      },
+      "bundleIdentifier": "com.flown.AICheckerApp",
+      "buildNumber": "5"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "WAKE_LOCK",
+        "android.permission.CAMERA",
+        "android.permission.READ_MEDIA_IMAGES"
+      ],
+      "package": "com.flown.AICheckerApp"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-localization",
+      "./plugins/withPodfile"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "7feed25b-8f5c-4450-b662-e2b05cd78244"
+      }
+    },
+    "owner": "flown"
+  }
+}

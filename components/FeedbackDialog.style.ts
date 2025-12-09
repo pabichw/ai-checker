@@ -1,0 +1,131 @@
+import { StyleSheet } from 'react-native';
+import { colors, spacing, borderRadius } from '../config/styles';
+
+export const styles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: spacing.lg,
+  },
+  dialog: {
+    backgroundColor: colors.background,
+    borderRadius: borderRadius.md,
+    padding: spacing.md,
+    width: '100%',
+    maxWidth: 400,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: colors.text,
+    textAlign: 'center',
+    marginBottom: spacing.sm,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: colors.whiteDark,
+    textAlign: 'center',
+    marginBottom: spacing.md,
+  },
+  emoji: {
+    fontSize: 48,
+    textAlign: 'center',
+    marginBottom: spacing.xs,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    gap: spacing.md,
+    marginBottom: spacing.xs,
+  },
+  button: {
+    flex: 1,
+    padding: spacing.xs,
+    borderRadius: borderRadius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  positiveButton: {
+    backgroundColor: 'rgba(76, 175, 80, 0.1)',
+    borderWidth: 2,
+    borderColor: colors.green,
+  },
+  negativeButton: {
+    backgroundColor: 'rgba(244, 67, 54, 0.1)',
+    borderWidth: 2,
+    borderColor: colors.red,
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: colors.text,
+    marginTop: spacing.sm,
+    textAlign: 'center',
+  },
+  closeButton: {
+    padding: spacing.xxs,
+    alignItems: 'center',
+  },
+  closeButtonText: {
+    fontSize: 14,
+    color: colors.whiteDark,
+  },
+  textarea: {
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    borderRadius: borderRadius.md,
+    borderWidth: 2,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+    padding: spacing.sm,
+    color: colors.text,
+    fontSize: 16,
+    minHeight: 120,
+    textAlignVertical: 'top',
+    marginBottom: spacing.lg,
+  },
+  textfield: {
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    borderRadius: borderRadius.md,
+    borderWidth: 2,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+    padding: spacing.sm,
+    color: colors.text,
+    fontSize: 16,
+    minHeight: 40,
+    textAlignVertical: 'top',
+    marginBottom: spacing.lg,
+  },
+  feedbackButtons: {
+    flexDirection: 'row',
+    gap: spacing.md,
+  },
+  cancelButton: {
+    flex: 1,
+    padding: spacing.md,
+    borderRadius: borderRadius.md,
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    alignItems: 'center',
+  },
+  cancelButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: colors.whiteDark,
+  },
+  submitButton: {
+    flex: 1,
+    padding: spacing.md,
+    borderRadius: borderRadius.md,
+    backgroundColor: colors.secondary,
+    alignItems: 'center',
+  },
+  submitButtonDisabled: {
+    opacity: 0.5,
+  },
+  submitButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: colors.background,
+  },
+});
