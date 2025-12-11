@@ -98,7 +98,7 @@ export default function FAQScreen() {
                 </View>
 
                 <Button type="faded" onPress={() => navigation.goBack()}>
-                    Back to Scanner
+                    Back
                 </Button>
             </ScrollView>
         </AnimatedScreen>

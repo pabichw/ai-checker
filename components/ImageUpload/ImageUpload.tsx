@@ -24,6 +24,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import { Accordion } from '../ui/Accordion/Accordion';
 import { getErrorMessage } from '../../utils/error';
 import { imageToBase64 } from '../../utils/media';
+import RecognitionResultView from '../RecognitionResultView/RecognitionResultView';
 
 export default function ImageUpload() {
     const navigation = useNavigation();
@@ -196,10 +197,7 @@ export default function ImageUpload() {
                 </View>
             }
             {result && 
-                <View style={styles.resultContainer}>
-                    <Text>{result.name}</Text>
-                    <Text>{result.ai_indicator * 100}% chance it's AI</Text>
-                </View>
+                <RecognitionResultView result={result} />
             }
         </View>
     )
