@@ -133,7 +133,7 @@ export default function ContentUpload() {
             try {
                 await searchHistoryService.addSearch({
                     id: uuidv4(),
-                    imageUri: activeTab === 'image' ? uri : undefined,
+                    imageUri: activeTab === 'image' ? String(uri) : undefined,
                     textContent: activeTab === 'text' ? textContent : undefined,
                     result: result,
                     timestamp: Date.now(),
@@ -229,28 +229,37 @@ export default function ContentUpload() {
             label: 'Text',
             content: (
                 <View style={styles.contentWrapper}>
-                    <TextContentPicker value={textContent} onTextChange={handleTextChange} disabled={!!result} />
+                    <TextContentPicker value={textContent} onTextChange={handleTextChange} disabled={!!result && loading} />
                     {!result && (
                         <View style={styles.tipContainer}>
                             <Text style={styles.tip}>Tip: Paste or type the text you want to check</Text>
                         </View>
                     )}
                     <View style={styles.actions}>
-                        <Button
-                            disabled={!isContentReady || loading}
-                            onPress={handleUpload}
-                        >
-                            {loading ?
-                                <SpinnerText
-                                    texts={["Checking...", "Hold on...", "Cracking...", "Hmmmm..."]}
-                                    style={{ transform: [{ translateY: -9 }] }}
-                                    textStyle={{ fontWeight: '600', fontSize: 16, textAlign: 'center' }}
-                                    reservedItemWidth={92}
-                                    interval={4000}
-                                />
-                                : result ? 'Check again' : 'Check'
-                            }
-                        </Button>
+                        {!result ? 
+                            <Button
+                                disabled={!isContentReady || loading}
+                                onPress={handleUpload}
+                            >
+                                {loading ?
+                                    <SpinnerText
+                                        texts={["Checking...", "Hold on...", "Cracking...", "Hmmmm..."]}
+                                        style={{ transform: [{ translateY: -9 }] }}
+                                        textStyle={{ fontWeight: '600', fontSize: 16, textAlign: 'center' }}
+                                        reservedItemWidth={92}
+                                        interval={4000}
+                                    />
+                                    :'Check'
+                                }
+                            </Button>
+                        :
+                            <Button
+                                type="faded"
+                                onPress={handleReset}
+                            >
+                                Clear
+                            </Button>
+                        }
                     </View>
                 </View>
             ),

@@ -8,7 +8,7 @@ export default function ProductDetails({ product }: { product: PricingResult }) 
     return (
         <View style={styles.container}>
             <Text style={styles.productTitle}>{product.name}</Text>
-            <View style={styles.priceSection}>
+            <View style={styles.mainSection}>
                 <View style={styles.mostLikelyPriceContainer}>
                     <Text style={styles.mostLikelyLabel}>Est. Price</Text>
                     <Text style={styles.mostLikelyPrice}>

@@ -22,13 +22,13 @@ export const styles = StyleSheet.create({
   detailsCard: {
     padding: spacing.md,
   },
-  productName: {
+  title: {
     fontSize: 24,
     fontWeight: '700',
     color: colors.text,
     marginBottom: spacing.lg,
   },
-  priceSection: {
+  mainSection: {
     marginBottom: spacing.lg,
   },
   mostLikelyPriceContainer: {
@@ -38,49 +38,10 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.offwhite,
     borderRadius: borderRadius.md,
   },
-  mostLikelyLabel: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: colors.textSecondary,
-    marginBottom: spacing.xxs,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-  },
-  mostLikelyPrice: {
-    fontSize: 24,
-    fontWeight: '800',
-    color: colors.green,
-  },
-  priceLabel: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: colors.textSecondary,
-    marginBottom: spacing.sm,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-  },
-  priceRow: {
-    flexDirection: 'row',
-    gap: spacing.sm,
-  },
-  priceBox: {
-    flex: 1,
-    backgroundColor: colors.offwhite,
-    padding: spacing.xs,
-    borderRadius: borderRadius.md,
-    alignItems: 'center',
-  },
-  priceBoxLabel: {
-    fontSize: 10,
-    color: colors.textMuted,
-    marginBottom: spacing.xxs,
-    textTransform: 'uppercase',
-  },
-  priceValue: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: colors.green,
-    textAlign: 'center',
+  textContent: {
+    fontSize: 16,
+    color: colors.text,
+    marginBottom: spacing.md,
   },
   metaSection: {
     paddingVertical: spacing.md,

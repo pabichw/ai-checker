@@ -7,6 +7,7 @@ import { formatMoney } from '../../utils/money';
 import Button from '../../components/ui/Button';
 import { useNavigation } from '@react-navigation/native';
 import { searchHistoryService } from '../../services/searchHistoryService';
+import RecognitionResultView from '../../components/RecognitionResultView/RecognitionResultView';
 
 interface SearchDetailsScreenProps {
   route: {
@@ -52,42 +53,15 @@ export const SearchDetailsScreen: React.FC<SearchDetailsScreenProps> = ({ route 
   return (
     <AnimatedScreen>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.imageContainer}>
+        {item.imageUri && <View style={styles.imageContainer}>
           <Image source={{ uri: item.imageUri }} style={styles.image} />
-        </View>
+        </View>}
 
         <View style={styles.detailsCard}>
-          <Text style={styles.productName}>{item.result.name}</Text>
-
-          <View style={styles.priceSection}>
-            <View style={styles.mostLikelyPriceContainer}>
-              <Text style={styles.mostLikelyLabel}>Est. Price</Text>
-              <Text style={styles.mostLikelyPrice}>
-                {formatMoney(item.result.price?.most_likely, item.result.price?.currency)}
-              </Text>
-            </View>
-            <Text style={styles.priceLabel}>Price Range</Text>
-            <View style={styles.priceRow}>
-              <View style={styles.priceBox}>
-                <Text style={styles.priceBoxLabel}>Min</Text>
-                <Text style={styles.priceValue}>
-                  {formatMoney(item.result.price?.min, item.result.price?.currency)}
-                </Text>
-              </View>
-              <View style={styles.priceBox}>
-                <Text style={styles.priceBoxLabel}>Max</Text>
-                <Text style={styles.priceValue}>
-                  {formatMoney(item.result.price?.max, item.result.price?.currency)}
-                </Text>
-              </View>
-              <View style={styles.priceBox}>
-                <Text style={styles.priceBoxLabel}>Confidence</Text>
-                <Text style={[styles.priceValue, { color: `hsl(${item.result.confidence * 110}, 100%, 40%)` }]}>
-                  {(item.result.confidence * 100).toFixed(0)}%
-                </Text>
-              </View>
-            </View>
-            {item.result?.locale && <Text style={styles.tip}>Note: Price estimate localized for your region.</Text>}
+          {item.result.name && <Text style={styles.title}>{item.result.name}</Text>}
+          {item.textContent && <Text style={styles.textContent}>{item.textContent}</Text>}
+          <View style={styles.mainSection}>
+            <RecognitionResultView result={{ ai_indicator: item.result.ai_indicator }} />
           </View>
 
           <View style={styles.metaSection}>
@@ -95,12 +69,8 @@ export const SearchDetailsScreen: React.FC<SearchDetailsScreenProps> = ({ route 
             <Text style={styles.metaValue}>{formatDate(item.timestamp)}</Text>
           </View>
 
-
           <View style={styles.actions}>
-            <Button type="secondary" onPress={() => Linking.openURL(item.result.amazon_link)}>
-              Check on Amazon
-            </Button>
-            <Button  onPress={handleDelete}>
+            <Button type="faded" onPress={handleDelete}>
               Delete from History
             </Button>
           </View>

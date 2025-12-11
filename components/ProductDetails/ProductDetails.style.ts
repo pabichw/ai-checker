@@ -12,7 +12,7 @@ export default StyleSheet.create({
     color: colors.text,
     marginBottom: spacing.md,
   },
-  priceSection: {
+  mainSection: {
     width: '100%',
   },
   mostLikelyPriceContainer: {

@@ -5,43 +5,50 @@ import styles from "./RecognitionResultView.style";
 import { colors } from "../../config/styles";
 
 interface Props {
-    result: RecognitionResult
+    result: Partial<RecognitionResult>
 }
 
-export const isOrIsNotAI = (value: number): 'IS' | 'IS NOT' | 'MAY BE' => {
+export enum RecognitionStatus {
+    IS = 'IS',
+    IS_NOT = 'IS NOT',
+    MAY_BE = 'MAY BE'
+}
+
+
+export const isOrIsNotAI = (value: number): RecognitionStatus => {
     if (value >= 0.60) {
-        return 'IS'
+        return RecognitionStatus.IS
     } else if (value > 0.40 && value < 0.60) {
-        return 'MAY BE'
+        return RecognitionStatus.MAY_BE
     } else {
-        return 'IS NOT'
+        return RecognitionStatus.IS_NOT
+    }
+}
+
+export const colorPick = (status: RecognitionStatus) => {
+    switch (status) {
+        case RecognitionStatus.IS:
+            return colors.red;
+        case RecognitionStatus.MAY_BE:
+            return colors.yellow;
+        case RecognitionStatus.IS_NOT:
+            return colors.green;
     }
 }
 
 export default function ({ result }: Props) {
+    const is = isOrIsNotAI(result.ai_indicator ?? 0);
 
-    let properColor = '';
-
-    switch (isOrIsNotAI(result.ai_indicator)) {
-        case 'IS': 
-            properColor = colors.red;
-            break;
-        case 'IS NOT':
-            properColor = colors.green;
-            break;
-        case 'MAY BE':
-            properColor = colors.yellow;
-            break;
-    }
+    console.log('ai_indicator', result.ai_indicator);
 
     return (
         <View style={styles.container}>
             <Text>{result.name}</Text>
-            <Barometer value={result.ai_indicator * 100} />
+            <Barometer value={(result.ai_indicator ?? 0) * 100} />
             <View style={styles.textContainer}>
                 <Text style={styles.text}>This</Text>
-                <Text style={[styles.text, styles.isOrIsNotText, { color: properColor }]}>
-                    {isOrIsNotAI(result.ai_indicator)}
+                <Text style={[styles.text, styles.isOrIsNotText, { color: colorPick(is) }]}>
+                    {is}
                 </Text>
                 <Text style={styles.text}>AI</Text>
             </View>

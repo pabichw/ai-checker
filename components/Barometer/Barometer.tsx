@@ -2,6 +2,7 @@ import { Text, View } from 'react-native'
 import Svg, { Circle } from 'react-native-svg'
 import {colors} from '../../config/styles'
 import styles from './Barometer.style'
+import { colorPick, isOrIsNotAI } from '../RecognitionResultView/RecognitionResultView';
 
 interface Props {
     value: number;
@@ -18,8 +19,6 @@ export default function Barometer({
     const radius = (size - strokeWidth) / 2;
     const circumference = Math.PI * radius; 
     const progressOffset = circumference - (clampedValue / 100) * circumference;
-
-    const progressColor = value > 50 ? colors.red : colors.green;
 
     return (
         <View style={styles.container}>
@@ -42,7 +41,7 @@ export default function Barometer({
                     cx={size / 2}
                     cy={size / 2}
                     r={radius}
-                    stroke={progressColor}
+                    stroke={colorPick(isOrIsNotAI(value / 100))}
                     strokeWidth={strokeWidth}
                     fill="none"
                     strokeLinecap="round"

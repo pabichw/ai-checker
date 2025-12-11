@@ -54,8 +54,8 @@ export const SearchHistoryScreen: React.FC = () => {
         <Text style={styles.itemName} numberOfLines={2}>
           {item.result.name}
         </Text>
-        <Text style={styles.itemPrice}>
-          {formatMoney(item.result.price?.min, item.result.price?.currency)} - {formatMoney(item.result.price?.max, item.result.price?.currency)}
+        <Text>
+          {item.result.ai_indicator * 100}%
         </Text>
         <Text style={styles.itemDate}>{formatDate(item.timestamp)}</Text>
       </View>
