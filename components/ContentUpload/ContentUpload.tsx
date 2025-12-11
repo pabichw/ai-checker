@@ -2,8 +2,10 @@ import 'react-native-get-random-values';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert, Text, View, TouchableOpacity } from "react-native";
 import { PhotoPicker } from "../PhotoPicker/PhotoPicker";
+import { TextContentPicker } from "../TextContentPicker/TextContentPicker";
 import Button from "../ui/Button";
-import styles from "./ImageUpload.style";
+import Tabs from "../ui/Tabs/Tabs";
+import styles from "./ContentUpload.style";
 import { useState, useEffect } from "react";
 import { recognitionService } from "../../services/recognitionService";
 import { SEARCH_HISTORY_KEY, searchHistoryService } from "../../services/searchHistoryService";
@@ -26,7 +28,7 @@ import { getErrorMessage } from '../../utils/error';
 import { imageToBase64 } from '../../utils/media';
 import RecognitionResultView from '../RecognitionResultView/RecognitionResultView';
 
-export default function ImageUpload() {
+export default function ContentUpload() {
     const navigation = useNavigation();
     const { isPro, showPaywall } = usePaywall();
     const { settings } = useSettings();
@@ -34,7 +36,9 @@ export default function ImageUpload() {
     
     const [loading, setLoading] = useState(false);
     const [limitLoading, setLimitLoading] = useState(false);
-    const [uri, setUri] = useState<string | null>(null)
+    const [activeTab, setActiveTab] = useState<'image' | 'text'>('image');
+    const [uri, setUri] = useState<string | null>(null);
+    const [textContent, setTextContent] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [result, setResult] = useState<RecognitionResult | null>(null);
     const [limit, setLimit] = useState<LimitResponseDto | null>(null);
@@ -59,29 +63,62 @@ export default function ImageUpload() {
         setResult(null);
     };
 
+    const handleTextChange = (text: string) => {
+        setTextContent(text);
+        setResult(null);
+    };
+
+    const handleTabChange = (tabKey: string) => {
+        setActiveTab(tabKey as 'image' | 'text');
+        setResult(null);
+    };
+
     const handleReset = () => {
         setUri(null);
+        setTextContent('');
         setDescription('');
         setResult(null);
     };
     
     const handleUpload = async () => {
-        console.log(uri);
-        if (!uri) {
-            Alert.alert('No image selected');
-            return;
-        };
+        // Validate content based on active tab
+        if (activeTab === 'image') {
+            if (!uri) {
+                Alert.alert('No image selected');
+                return;
+            }
+        } else if (activeTab === 'text') {
+            if (!textContent.trim()) {
+                Alert.alert('No text entered', 'Please enter some text to check.');
+                return;
+            }
+        }
 
         if (!isPro && typeof limit?.remaining === 'number' && limit?.remaining <= 0) {
             Alert.alert('No uses left', 'You have reached your limit for the week. Please upgrade to a premium account to renew your limit.');
             showPaywall();
             return;
         }
-        
-        const media = [{
-            type: 'image',
-            image_base64: await imageToBase64(uri),
-        }]
+
+        // Prepare media based on active tab
+        let media;
+        if (activeTab === 'image' && uri) {
+            media = [{
+                type: 'image',
+                image_base64: await imageToBase64(uri),
+            }];
+        } else if (activeTab === 'text') {
+            media = [{
+                type: 'text',
+                text: textContent,
+            }];
+        }
+
+        if (!media) {
+            Alert.alert('No content to check');
+            return;
+        }
+
         try {
             setLoading(true);
             const result = await recognitionService.uploadMedia(media, isPro);
@@ -96,7 +133,8 @@ export default function ImageUpload() {
             try {
                 await searchHistoryService.addSearch({
                     id: uuidv4(),
-                    imageUri: uri,
+                    imageUri: activeTab === 'image' ? uri : undefined,
+                    textContent: activeTab === 'text' ? textContent : undefined,
                     result: result,
                     timestamp: Date.now(),
                 });
@@ -133,53 +171,99 @@ export default function ImageUpload() {
         }
     }
     
-    return (
-        <View style={styles.container}>
-            <View style={styles.imageWrapper}>
-                <LimitDisplay limit={limit} loading={limitLoading} />
-                <PhotoPicker imageUri={uri} onImageSelected={handleImageChange} />
-            </View>
-            {!result && 
-                <View style={styles.body}>
-                    <View style={styles.tipContainer}>
-                        <Text style={styles.tip}>Tip: Picture the item from top to bottom and in good lighting</Text>
-                    </View>
+    const isContentReady = (activeTab === 'image' && uri) || (activeTab === 'text' && textContent.trim().length > 0);
+
+    const tabs = [
+        {
+            key: 'image',
+            label: 'Image',
+            content: (
+                <View style={styles.contentWrapper}>
+                    <PhotoPicker imageUri={uri} onImageSelected={handleImageChange} />
+                    {!result && (
+                        <View style={styles.tipContainer}>
+                            <Text style={styles.tip}>Tip: Picture the item from top to bottom and in good lighting</Text>
+                        </View>
+                    )}
+                    <Accordion
+                        title="Options"
+                        passedStyles={{
+                            header: styles.accordionHeader,
+                            title: styles.accordionTitle,
+                            icon: styles.accordionIcon,
+                            content: styles.accordionContent,
+                        }}
+                    >
+                        <TouchableOpacity disabled={loading} activeOpacity={loading ? 1 : 0.5}>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Add additional details..."
+                                value={description}
+                                onChangeText={setDescription}
+                                multiline
+                            />
+                        </TouchableOpacity>
+                    </Accordion>
                     <View style={styles.actions}>
-                        <Accordion
-                            title="Options"
-                            passedStyles={{
-                                header: styles.accordionHeader,
-                                title: styles.accordionTitle,
-                                icon: styles.accordionIcon,
-                                content: styles.accordionContent,
-                            }}
-                        >
-                            <TouchableOpacity disabled={loading} activeOpacity={loading ? 1 : 0.5}>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Add additional details..."
-                                    value={description}
-                                    onChangeText={setDescription}
-                                    multiline
-                                />
-                            </TouchableOpacity>
-                        </Accordion>
                         <Button
-                            disabled={!uri || loading}
+                            disabled={!isContentReady || loading}
                             onPress={handleUpload}
                         >
-                            {loading ? 
+                            {loading ?
                                 <SpinnerText
-                                    texts={["Checking...", "Hold on...", "Cracking...", "Hmmmm..."]} 
+                                    texts={["Checking...", "Hold on...", "Cracking...", "Hmmmm..."]}
                                     style={{ transform: [{ translateY: -9 }] }}
                                     textStyle={{ fontWeight: '600', fontSize: 16, textAlign: 'center' }}
-                                    reservedItemWidth={92} 
-                                    interval={4000} 
-                                /> 
+                                    reservedItemWidth={92}
+                                    interval={4000}
+                                />
                                 : result ? 'Check again' : 'Check'
                             }
                         </Button>
                     </View>
+                </View>
+            ),
+        },
+        {
+            key: 'text',
+            label: 'Text',
+            content: (
+                <View style={styles.contentWrapper}>
+                    <TextContentPicker value={textContent} onTextChange={handleTextChange} disabled={!!result} />
+                    {!result && (
+                        <View style={styles.tipContainer}>
+                            <Text style={styles.tip}>Tip: Paste or type the text you want to check</Text>
+                        </View>
+                    )}
+                    <View style={styles.actions}>
+                        <Button
+                            disabled={!isContentReady || loading}
+                            onPress={handleUpload}
+                        >
+                            {loading ?
+                                <SpinnerText
+                                    texts={["Checking...", "Hold on...", "Cracking...", "Hmmmm..."]}
+                                    style={{ transform: [{ translateY: -9 }] }}
+                                    textStyle={{ fontWeight: '600', fontSize: 16, textAlign: 'center' }}
+                                    reservedItemWidth={92}
+                                    interval={4000}
+                                />
+                                : result ? 'Check again' : 'Check'
+                            }
+                        </Button>
+                    </View>
+                </View>
+            ),
+        },
+    ];
+
+
+    return (
+        <View style={styles.container}>
+            <LimitDisplay limit={limit} loading={limitLoading} />
+            <View style={styles.body}>
+                <Tabs tabs={tabs} defaultTab="image" onTabChange={handleTabChange} />
+                {!result && 
                     <View style={styles.gridActions}>
                         <TouchableOpacity style={styles.gridAction} onPress={() => navigation.navigate('Tutorial' as never)}>
                             <View style={styles.gridActionIcon}>
@@ -194,9 +278,9 @@ export default function ImageUpload() {
                             <Text style={styles.gridActionText}>FAQ</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
-            }
-            {result && 
+                }
+            </View>
+            {result &&
                 <RecognitionResultView result={result} />
             }
         </View>

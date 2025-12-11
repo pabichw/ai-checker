@@ -12,13 +12,15 @@ export default StyleSheet.create({
         paddingHorizontal: spacing.md,
     },
     body: {
-        gap: spacing.xxs,
+        flex: 1,
+        gap: spacing.sm,
     },
     actions: {
         flexDirection: 'column',
         alignItems: 'stretch',
+        width: '100%'
     },
-    imageWrapper: {
+    contentWrapper: {
         alignItems: 'center',
         gap: spacing.sm,
     },
@@ -30,6 +32,7 @@ export default StyleSheet.create({
         paddingHorizontal: spacing.xs,
         paddingVertical: spacing.xs,
         backgroundColor: 'transparent',
+        width: '100%'
     },
     accordionTitle: {
         fontSize: 14,

@@ -119,7 +119,7 @@ export const PhotoPicker = ({ imageUri, onImageSelected }: PhotoPickerProps) => 
                     <Text style={styles.sectionTitle}>
                         Add Photo
                     </Text>
-                    <Ionicons name="camera" size={64} color={colors.primary} />
+                    <Ionicons name="camera" size={64} color={colors.text} opacity={0.8} />
                 </TouchableOpacity>
             )}
         </View>
