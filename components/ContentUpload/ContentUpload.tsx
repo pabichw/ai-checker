@@ -184,7 +184,7 @@ export default function ContentUpload() {
                     {!result && (
                         <>
                             <View style={styles.tipContainer}>
-                                <Text style={styles.tip}>Tip: Picture the item from top to bottom and in good lighting</Text>
+                                <Text style={styles.tip}>Tip: Upload best quality image for accurate results</Text>
                             </View>
                             <Accordion
                                 title="Options"
@@ -216,7 +216,6 @@ export default function ContentUpload() {
             content: (
                 <View style={styles.contentWrapper}>
                     <TextContentPicker value={textContent} onTextChange={handleTextChange} disabled={!!result && loading} />
-                    {!result && (
                         <View style={styles.tipContainer}>
                             <Text style={styles.tip}>Tip: Paste or type the text you want to check</Text>
                         </View>

@@ -43,7 +43,7 @@ export default function LimitDisplay({ limit, loading }: LimitDisplayProps) {
                     icon={<IconCrownWhite width={15} height={15} />}
                     disabled={isPro}
                 >
-                    <Text style={{fontSize: 10}}>{isPro ? 'Premium' : 'Go Premium'}</Text>
+                    <Text style={{fontSize: 10}}>{isPro ? 'Premium' : 'Go Unlimited'}</Text>
                 </Button>
             </View>
         </View>
