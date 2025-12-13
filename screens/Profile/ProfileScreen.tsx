@@ -8,12 +8,10 @@ import { recognitionService } from '../../services/recognitionService';
 import { LimitResponseDto } from '../../types/api';
 import IconCrown from '../../assets/icons/icon-crown.svg';
 import Button from '../../components/ui/Button';
-import { useNavigation } from '@react-navigation/native';
 
 export default function ProfileScreen() {
-    const navigation = useNavigation();
     const { isPro, showPaywall } = usePaywall();
-    const [photosTaken, setPhotosTaken] = useState(0);
+    const [detectionsMade, setDetectionsMade] = useState(0);
     const [limit, setLimit] = useState<LimitResponseDto | null>(null);
     const [loading, setLoading] = useState(true);
 
@@ -28,7 +26,7 @@ export default function ProfileScreen() {
 
             // Get photos taken count from search history
             const history = await searchHistoryService.getHistory();
-            setPhotosTaken(history.length);
+            setDetectionsMade(history.length);
 
             // Get usage limit
             const limitData = await recognitionService.getLimit(isPro);
@@ -41,11 +39,10 @@ export default function ProfileScreen() {
     };
 
     const getUsagePercentage = () => {
-        if (!limit || typeof limit.remaining !== 'number' || typeof limit.total !== 'number') {
+        if (!limit || typeof limit.remaining !== 'number' || typeof limit.used !== 'number') {
             return 0;
         }
-        const used = limit.total - limit.remaining;
-        return Math.round((used / limit.total) * 100);
+        return Math.round((limit.used / (limit.limit || NaN)) * 100);
     };
 
     const getUsageStatus = () => {
@@ -77,10 +74,10 @@ export default function ProfileScreen() {
                 {/* Premium Status */}
                 <View style={styles.card}>
                     <View style={styles.cardHeader}>
-                        <IconCrown width={28} height={28} fill={isPro ? '#FFD700' : '#ccc'} />
                         <Text style={styles.cardTitle}>Account Status</Text>
                     </View>
                     <View style={styles.statusBadge}>
+                        <IconCrown width={20} height={20} style={{top: -1, marginRight: 4}} fill={isPro ? '#FFD700' : '#ccc'} />
                         <Text style={[styles.statusText, isPro && styles.statusTextPremium]}>
                             {isPro ? 'Premium Member' : 'Free Plan'}
                         </Text>
@@ -97,8 +94,8 @@ export default function ProfileScreen() {
                     <Text style={styles.cardTitle}>Usage Statistics</Text>
 
                     <View style={styles.statRow}>
-                        <Text style={styles.statLabel}>Photos Taken</Text>
-                        <Text style={styles.statValue}>{photosTaken}</Text>
+                        <Text style={styles.statLabel}>Detections made:</Text>
+                        <Text style={styles.statValue}>{detectionsMade}</Text>
                     </View>
 
                     <View style={styles.divider} />
@@ -110,7 +107,7 @@ export default function ProfileScreen() {
                         </Text>
                     </View>
 
-                    {!isPro && limit && typeof limit.remaining === 'number' && typeof limit.total === 'number' && (
+                    {!isPro && limit && typeof limit.remaining === 'number' && typeof limit.used === 'number' && (
                         <>
                             <View style={styles.progressBarContainer}>
                                 <View style={styles.progressBarBackground}>
@@ -122,7 +119,7 @@ export default function ProfileScreen() {
                                     />
                                 </View>
                                 <Text style={styles.progressText}>
-                                    {limit.total - limit.remaining} / {limit.total} used
+                                    {limit.used} used
                                 </Text>
                             </View>
                         </>

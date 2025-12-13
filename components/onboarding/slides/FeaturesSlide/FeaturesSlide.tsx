@@ -13,9 +13,9 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    icon: 'magnifier',
+    icon: 'search-outline',
     title: 'Detect',
-    description: 'Get instant AI detection result both for images and text.',
+    description: 'Get instant AI detection results both for images and text.',
   },
   {
     icon: 'flash',
@@ -25,7 +25,7 @@ const features: Feature[] = [
   {
     icon: 'calculator',
     title: 'AI-powered',
-    description: 'Powered by advanced AI for reliable price information',
+    description: 'Powered by advanced fine-tuned AI for reliable detection',
   },
 ];
 

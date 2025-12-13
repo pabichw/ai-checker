@@ -20,8 +20,7 @@ export const style = StyleSheet.create({
     },
     laurusText: {
         position: 'absolute',
-        top: '50%',
-        transform: [{ translateY: '-50%' }],
+        top: '37%',
         fontSize: 10,
         fontFamily: 'Arial',
         fontWeight: 'bold',

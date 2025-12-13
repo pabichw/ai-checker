@@ -41,7 +41,6 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: spacing.sm,
-        marginBottom: spacing.sm,
     },
     cardTitle: {
         fontSize: 18,
@@ -50,6 +49,9 @@ export const styles = StyleSheet.create({
         marginBottom: spacing.sm,
     },
     statusBadge: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
         alignSelf: 'flex-start',
         paddingHorizontal: spacing.sm,
         paddingVertical: spacing.xxs,
@@ -58,6 +60,9 @@ export const styles = StyleSheet.create({
         marginBottom: spacing.xs,
     },
     statusText: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         fontSize: 14,
         fontWeight: '600',
         color: colors.textSecondary,

@@ -7,10 +7,10 @@ export const styles = StyleSheet.create({
     image: {
         position: 'absolute',
         width: 160,
-        height: 400,
+        height: 420,
         top: 0,
         left: 0,
         zIndex: 1,
-        transform: [{ translateY: -207 }, { translateX: -80 }],
+        transform: [{ translateY: -210 }, { translateX: -80 }],
     },
 });

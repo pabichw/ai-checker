@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     marginTop: spacing.md,
   },
   reviewCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    backgroundColor: 'rgba(255, 255, 255, 0.75)',
     borderRadius: 20,
     padding: spacing.lg,
     alignItems: 'center',
