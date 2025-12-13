@@ -34,28 +34,28 @@ const reviews: Review[] = [
     id: '1',
     nickname: 'Sara',
     rating: 5,
-    review: 'Very accurate and helpful for getting a quick price estimate.',
+    review: 'Super accurate at detecting AI-generated content. Saved me from sharing a fake article!',
     avatar: avatars[3],
   },
   {
     id: '2',
     nickname: 'johnath1997',
     rating: 5,
-    review: 'I was not aware of how much my guitar was worth! Thanks to this app, I was able to sell it for a much higher price.',
+    review: 'I use this daily to verify if images and text are AI-generated. Works like a charm!',
     avatar: avatars[4],
   },
   {
     id: '3',
     nickname: 'Emma L.',
     rating: 5,
-    review: 'Thank you for this app! It was a lifesaver when I was trying to sell my sofa <3',
+    review: 'Finally an app that can tell if a viral post was made by AI. Essential tool for journalists and content creators to verify authenticity! <3',
     avatar: avatars[2],
   },
   {
     id: '4',
     nickname: 'Anonymous',
     rating: 5,
-    review: 'Fantastic app! I was able to sell my find out what brand my watch was',
+    review: 'Fantastic app! Helped me identify AI-generated photos in seconds.',
     avatar: avatars[1],
   },
 ];
@@ -96,8 +96,8 @@ export const SocialProofSlide = ({ visible }: Props) => {
   return (
     <View style={styles.container}>
       <Animated.View style={fadeInTitleStyle}>
-        <Text style={styles.title}>Loved by thousands</Text>
-        <Text style={styles.subtitle}>Join our community of happy users</Text>
+        <Text style={styles.title}>Trusted by thousands</Text>
+        <Text style={styles.subtitle}>Join users who verify AI content daily</Text>
       </Animated.View>
 
       <Animated.View style={fadeInBraggadocioStyle}>

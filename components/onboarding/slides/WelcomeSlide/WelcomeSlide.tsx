@@ -14,9 +14,17 @@ export const WelcomeSlide = ({ visible }: OnboardingSlideProps) => {
     return (
         <Animated.View style={[styles.container, { opacity }]}>
             <View style={styles.headerContainer}>
-                <Text style={styles.header}>Check item's </Text><SpinnerText texts={['price.', 'brand.', 'model.']} style={{ top: -22 }} textStyle={{ color: colors.primary, fontSize: 24, fontWeight: 'bold' }} />
+                <Text style={styles.header}>
+                    Detect AI in 
+                </Text>
+                <SpinnerText 
+                    texts={['images.', 'texts.', 'posts.']} 
+                    style={{ top: -22 }} 
+                    textStyle={{ color: colors.primary, fontSize: 24, fontWeight: 'bold' }} 
+                    reservedItemWidth={98}
+                />
             </View>
-            <Text style={styles.subheader}>Most reliable ai checkerer.</Text>
+            <Text style={styles.subheader}>Most reliable AI content detector.</Text>
 
             <View style={styles.phoneContainer}>
                 <AnimatedPhone />

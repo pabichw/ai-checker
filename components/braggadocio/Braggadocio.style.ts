@@ -12,4 +12,21 @@ export const style = StyleSheet.create({
     image: {
         tintColor: '#1f1f1f',
     },
+    laurusContainer: {
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    laurusText: {
+        position: 'absolute',
+        top: '50%',
+        transform: [{ translateY: '-50%' }],
+        fontSize: 10,
+        fontFamily: 'Arial',
+        fontWeight: 'bold',
+        color: '#1f1f1f',
+        width: '55%',
+        textAlign: 'center',
+    },
 });

@@ -13,9 +13,9 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    icon: 'pricetag',
-    title: 'Check Item Price',
-    description: 'Get instant price estimates for any item with just a photo',
+    icon: 'magnifier',
+    title: 'Detect',
+    description: 'Get instant AI detection result both for images and text.',
   },
   {
     icon: 'flash',
@@ -42,8 +42,8 @@ export const FeaturesSlide = ({ visible }: Props) => {
   return (
     <View style={styles.container}>
       <Animated.View style={fadeInTitleStyle}>
-        <Text style={styles.title}>Why AI Checker?</Text>
-        <Text style={styles.subtitle}>Everything you need for smart pricing</Text>
+        <Text style={styles.title}>Why Our App?</Text>
+        <Text style={styles.subtitle}>Everything you need for AI detection</Text>
       </Animated.View>
 
       <View style={styles.featuresContainer}>
