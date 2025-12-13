@@ -5,6 +5,7 @@ import { useHaptic } from "../../hooks/useHaptic";
 
 interface Props {
     children: React.ReactNode;
+    before?: React.ReactNode;
     type?: 'primary' | 'secondary' | 'faded' | 'special';
     style?: StyleProp<ViewStyle>;
     disabled?: boolean;

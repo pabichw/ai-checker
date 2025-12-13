@@ -21,7 +21,7 @@ export const WelcomeSlide = ({ visible }: OnboardingSlideProps) => {
                     texts={['images.', 'texts.', 'posts.']} 
                     style={{ top: -22 }} 
                     textStyle={{ color: colors.primary, fontSize: 24, fontWeight: 'bold' }} 
-                    reservedItemWidth={98}
+                    reservedItemWidth={88}
                 />
             </View>
             <Text style={styles.subheader}>Most reliable AI content detector.</Text>

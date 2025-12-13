@@ -204,9 +204,9 @@ export const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
         {currentIndex === 0 && <View style={styles.termsAndPrivacy}><TermsAndPrivacy /></View>}
 
         {/* Useful for debugging */}
-        {isDev && <TouchableOpacity onPress={completeOnboarding}>
+        {/* {isDev && <TouchableOpacity onPress={completeOnboarding}>
             <Text style={{ textAlign: 'center' }}>Skip</Text>
-        </TouchableOpacity>}
+        </TouchableOpacity>} */}
       </View>
     </View>
   );

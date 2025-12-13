@@ -18,6 +18,7 @@ import { usePaywall } from '../../context/PaywallContext';
 import { useSettings } from '../../context/SettingsContext';
 import { SearchHistoryItem } from '../../types/search';
 import { useFeedback } from '../../context/FeedbackContext';
+import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 import IconQuestionDark from '../../assets/icons/icon-question_dark.svg';
@@ -268,7 +269,14 @@ export default function ContentUpload() {
                 }
             </View>
             {result &&
-                <RecognitionResultView result={result} />
+                <>
+                    <RecognitionResultView result={result} />
+                    <View style={styles.resultActions}>
+                        <Button type="faded" onPress={handleReset} icon={<Ionicons name="arrow-undo-outline" size={20} />}>
+                            Try different
+                        </Button>
+                    </View>
+                </>
             }
         </View>
     )

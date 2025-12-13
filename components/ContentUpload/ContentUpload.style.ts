@@ -90,19 +90,11 @@ export default StyleSheet.create({
         height: 100,
         backgroundColor: colors.offwhite
     },
-    price: {
-        fontSize: 20,
-        fontWeight: '600',
-        color: colors.green,
-        textAlign: 'center',
-    },
     resultContainer: {
         alignItems: 'center',
         gap: spacing.md,
     },
-    priceContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: spacing.sm,
+    resultActions: {
+        marginTop: spacing.md,
     }
 })
