@@ -21,6 +21,7 @@ export default StyleSheet.create({
         width: '100%'
     },
     contentWrapper: {
+        flex: 1,
         alignItems: 'center',
         gap: spacing.sm,
     },

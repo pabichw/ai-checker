@@ -13,10 +13,11 @@ export interface Tab {
 interface TabsProps {
     tabs: Tab[];
     defaultTab?: string;
+    disabled?: boolean;
     onTabChange?: (tabKey: string) => void;
 }
 
-export default function Tabs({ tabs, defaultTab, onTabChange }: TabsProps) {
+export default function Tabs({ tabs, defaultTab, disabled, onTabChange }: TabsProps) {
     const [activeTab, setActiveTab] = useState(defaultTab || tabs[0]?.key);
     const [tabWidths, setTabWidths] = useState<number[]>([]);
     const [contentWidth, setContentWidth] = useState(screenWidth);
@@ -71,7 +72,7 @@ export default function Tabs({ tabs, defaultTab, onTabChange }: TabsProps) {
                     <TouchableOpacity
                         key={tab.key}
                         style={styles.tab}
-                        onPress={() => handleTabPress(tab.key)}
+                        onPress={() => !disabled && handleTabPress(tab.key)}
                         onLayout={handleTabLayout(index)}
                         activeOpacity={0.7}
                     >

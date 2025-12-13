@@ -13,7 +13,7 @@ export function TextContentPicker({ value, onTextChange, placeholder, disabled }
         <View style={styles.container}>
             <View style={styles.textInputWrapper}>
                 <TouchableOpacity
-                    style={{opacity: disabled ? 0.5 : 1}}
+                    style={{opacity: disabled ? 0.5 : 1, flex: 1}}
                     disabled={disabled}
                 >
                     <TextInput

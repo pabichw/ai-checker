@@ -181,46 +181,31 @@ export default function ContentUpload() {
                 <View style={styles.contentWrapper}>
                     <PhotoPicker imageUri={uri} onImageSelected={handleImageChange} />
                     {!result && (
-                        <View style={styles.tipContainer}>
-                            <Text style={styles.tip}>Tip: Picture the item from top to bottom and in good lighting</Text>
-                        </View>
+                        <>
+                            <View style={styles.tipContainer}>
+                                <Text style={styles.tip}>Tip: Picture the item from top to bottom and in good lighting</Text>
+                            </View>
+                            <Accordion
+                                title="Options"
+                                passedStyles={{
+                                    header: styles.accordionHeader,
+                                    title: styles.accordionTitle,
+                                    icon: styles.accordionIcon,
+                                    content: styles.accordionContent,
+                                }}
+                            >
+                                <TouchableOpacity disabled={loading} activeOpacity={loading ? 1 : 0.5}>
+                                    <TextInput
+                                        style={styles.input}
+                                        placeholder="Add additional details..."
+                                        value={description}
+                                        onChangeText={setDescription}
+                                        multiline
+                                    />
+                                </TouchableOpacity>
+                            </Accordion>
+                        </>
                     )}
-                    <Accordion
-                        title="Options"
-                        passedStyles={{
-                            header: styles.accordionHeader,
-                            title: styles.accordionTitle,
-                            icon: styles.accordionIcon,
-                            content: styles.accordionContent,
-                        }}
-                    >
-                        <TouchableOpacity disabled={loading} activeOpacity={loading ? 1 : 0.5}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Add additional details..."
-                                value={description}
-                                onChangeText={setDescription}
-                                multiline
-                            />
-                        </TouchableOpacity>
-                    </Accordion>
-                    <View style={styles.actions}>
-                        <Button
-                            disabled={!isContentReady || loading}
-                            onPress={handleUpload}
-                        >
-                            {loading ?
-                                <SpinnerText
-                                    texts={["Checking...", "Hold on...", "Cracking...", "Hmmmm..."]}
-                                    style={{ transform: [{ translateY: -9 }] }}
-                                    textStyle={{ fontWeight: '600', fontSize: 16, textAlign: 'center' }}
-                                    reservedItemWidth={92}
-                                    interval={4000}
-                                />
-                                : result ? 'Check again' : 'Check'
-                            }
-                        </Button>
-                    </View>
                 </View>
             ),
         },
@@ -235,8 +220,20 @@ export default function ContentUpload() {
                             <Text style={styles.tip}>Tip: Paste or type the text you want to check</Text>
                         </View>
                     )}
-                    <View style={styles.actions}>
-                        {!result ? 
+                </View>
+            ),
+        },
+    ];
+
+
+    return (
+        <View style={styles.container}>
+            <LimitDisplay limit={limit} loading={limitLoading} />
+            <View style={styles.body}>
+                <Tabs tabs={tabs} defaultTab="image" disabled={loading || !!result} onTabChange={handleTabChange} />
+                {!result && 
+                    <>
+                        <View style={styles.actions}>
                             <Button
                                 disabled={!isContentReady || loading}
                                 onPress={handleUpload}
@@ -249,44 +246,25 @@ export default function ContentUpload() {
                                         reservedItemWidth={92}
                                         interval={4000}
                                     />
-                                    :'Check'
+                                    : result ? 'Check again' : 'Check'
                                 }
                             </Button>
-                        :
-                            <Button
-                                type="faded"
-                                onPress={handleReset}
-                            >
-                                Clear
-                            </Button>
-                        }
-                    </View>
-                </View>
-            ),
-        },
-    ];
-
-
-    return (
-        <View style={styles.container}>
-            <LimitDisplay limit={limit} loading={limitLoading} />
-            <View style={styles.body}>
-                <Tabs tabs={tabs} defaultTab="image" onTabChange={handleTabChange} />
-                {!result && 
-                    <View style={styles.gridActions}>
-                        <TouchableOpacity style={styles.gridAction} onPress={() => navigation.navigate('Tutorial' as never)}>
-                            <View style={styles.gridActionIcon}>
-                                <IconQuestionDark width={35} height={35} />
-                            </View>
-                            <Text style={styles.gridActionText}>How to get better results</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.gridAction} onPress={() => navigation.navigate('FAQ' as never)}>
-                            <View style={styles.gridActionIcon}>
-                                <IconDatabase width={32} height={32} />
-                            </View>
-                            <Text style={styles.gridActionText}>FAQ</Text>
-                        </TouchableOpacity>
-                    </View>
+                        </View>
+                        <View style={styles.gridActions}>
+                            <TouchableOpacity style={styles.gridAction} onPress={() => navigation.navigate('Tutorial' as never)}>
+                                <View style={styles.gridActionIcon}>
+                                    <IconQuestionDark width={35} height={35} />
+                                </View>
+                                <Text style={styles.gridActionText}>How to get better results</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.gridAction} onPress={() => navigation.navigate('FAQ' as never)}>
+                                <View style={styles.gridActionIcon}>
+                                    <IconDatabase width={32} height={32} />
+                                </View>
+                                <Text style={styles.gridActionText}>FAQ</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </>
                 }
             </View>
             {result &&

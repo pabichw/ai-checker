@@ -7,9 +7,11 @@ export default StyleSheet.create({
     container: {
         alignItems: 'center',
         width: '100%',
+        flexGrow: 1,
     },
     textInputWrapper: {
         width: width - (spacing.md * 2),
+        flex: 1,
         borderWidth: 2,
         borderColor: 'rgba(0, 0, 0, 0.1)',
         borderRadius: borderRadius.md,
@@ -17,8 +19,7 @@ export default StyleSheet.create({
         overflow: 'hidden',
     },
     textInput: {
-        minHeight: 200,
-        maxHeight: 300,
+        flex: 1,
         padding: spacing.md,
         fontSize: 16,
         color: colors.text,
